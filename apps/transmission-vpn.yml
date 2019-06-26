@@ -148,3 +148,7 @@
       docker_container:
         name: '{{pgrole}}'
         state: stopped
+
+##PG-Community
+
+##PG-Community

@@ -264,3 +264,7 @@
       docker_container:
         name: '{{pgrole}}'
         state: started
+
+##PG-Community
+
+##PG-Community

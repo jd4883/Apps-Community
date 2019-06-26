@@ -40,7 +40,7 @@
           traefik.enable: 'true'
           traefik.port: '{{intport}}'
           traefik.frontend.auth.forward.address: '{{gauth}}'
-          traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}},{{tldset}}'
+          traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}},{{tldset}}',downloads.{{domain.stdout}},{{tldset}}'
 
     - name: 'Setting PG Volumes'
       set_fact:
@@ -48,15 +48,17 @@
           - '/opt/appdata/{{pgrole}}:/config'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/mnt/unionfs:/unionfs'
-          - '/mnt/downloads/{{pgrole}}:/output/complete'
-          - '/mnt/incomplete/{{pgrole}}:/output/incomplete'
+          - '/var/data/downloads:/var/data/downloads'
+          - '/var/data/downloads:/downloads'
+          - '/var/data/downloads/Complete/Torrents:/output/complete'
+          - '/var/data/downloads/Incomplete/Torrents:/output/incomplete'
           - '/etc/localtime:/etc/localtime:ro'
 
     - name: 'Setting PG ENV'
       set_fact:
         pg_env:
-          UID: '1000'
-          GID: '1000'
+          UID: '1001'
+          GID: '1001'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
@@ -76,3 +78,7 @@
         privileged: yes
         state: started
         labels: '{{pg_labels}}'
+
+##PG-Community
+
+##PG-Community
